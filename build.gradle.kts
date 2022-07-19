@@ -34,7 +34,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     runtimeOnly("org.postgresql:postgresql")
 
-    implementation("net.unethicalite:unethicalite-dto:0.0.10")
+    implementation("net.unethicalite:unethicalite-dto:0.0.14")
 }
 
 tasks.withType<KotlinCompile> {
