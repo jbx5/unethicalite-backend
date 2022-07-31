@@ -4,14 +4,16 @@ import net.unethicalite.backend.service.RegionService
 import net.unethicalite.dto.regions.TileFlagDto
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.MediaType
-import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import java.io.ByteArrayInputStream
 import javax.validation.Valid
 
-@RestController
-@RequestMapping("/regions")
-@Validated
+//@RestController
+//@RequestMapping("/regions")
+//@Validated
 class RegionController(
     private val regionService: RegionService,
 ) {
