@@ -2,6 +2,7 @@ package net.unethicalite.backend.repository
 
 import net.unethicalite.backend.config.properties.SessionProperties
 import net.unethicalite.backend.repository.entity.Session
+import net.unethicalite.dto.exception.BadRequestException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
 import java.time.Instant
@@ -16,10 +17,15 @@ class SessionRepository(
 
     fun findById(uuid: String) = sessions[uuid]
 
-    fun newSession(mode: String) = UUID.randomUUID().run {
+    fun newSession(mode: String, addr: String) = UUID.randomUUID().run {
         toString().also {
-            log.info("$it connected in $mode mode")
-            sessions[it] = Session(this, mode)
+            log.info("$it [$addr] connected in $mode mode")
+
+            if (sessions.values.count { s -> s.addr == addr } > 5) {
+                throw BadRequestException("Too many simultaneous connections")
+            }
+
+            sessions[it] = Session(this, mode, addr)
         }
     }
 

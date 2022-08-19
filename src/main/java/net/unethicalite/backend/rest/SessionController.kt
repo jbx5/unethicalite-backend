@@ -4,6 +4,7 @@ import net.unethicalite.backend.repository.SessionRepository
 import net.unethicalite.dto.exception.NotFoundException
 import org.springframework.web.bind.annotation.*
 import java.time.Instant
+import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/sessions")
@@ -14,8 +15,8 @@ class SessionController(
     fun count() = sessionRepository.count()
 
     @PostMapping
-    fun newSession(@RequestParam mode: String) =
-        sessionRepository.newSession(mode)
+    fun newSession(@RequestParam mode: String, request: HttpServletRequest) =
+        sessionRepository.newSession(mode, request.remoteAddr)
 
     @PostMapping("/ping")
     fun ping(@RequestParam session: String) {
