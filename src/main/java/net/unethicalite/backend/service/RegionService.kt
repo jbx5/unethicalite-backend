@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.zip.GZIPOutputStream
 
-@Service
+//@Service
 class RegionService(
     private val collisionMap: CollisionMap,
     private val storageService: StorageService
