@@ -16,7 +16,7 @@ class SessionController(
 
     @PostMapping
     fun newSession(@RequestParam mode: String, request: HttpServletRequest) =
-        sessionRepository.newSession(mode, request.remoteAddr)
+        sessionRepository.newSession(mode, request.getHeader("X-FORWARDED-FOR") ?: request.remoteAddr)
 
     @PostMapping("/ping")
     fun ping(@RequestParam session: String) {
