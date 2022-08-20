@@ -15,18 +15,18 @@ class SessionController(
     fun count() = sessionRepository.count()
 
     @PostMapping
-    fun newSession(@RequestParam mode: String, request: HttpServletRequest) =
-        sessionRepository.newSession(mode, request.getHeader("X-FORWARDED-FOR") ?: request.remoteAddr)
+    fun newSession(request: HttpServletRequest) =
+        sessionRepository.newSession(request.getHeader("X-FORWARDED-FOR") ?: request.remoteAddr)
 
     @PostMapping("/ping")
-    fun ping(@RequestParam session: String) {
-        sessionRepository.findById(session)?.also {
+    fun ping(request: HttpServletRequest) {
+        sessionRepository.findById(request.getHeader("X-FORWARDED-FOR") ?: request.remoteAddr)?.also {
             it.lastUpdate = Instant.now()
         } ?: throw NotFoundException("Session not found")
     }
 
     @DeleteMapping
-    fun delete(@RequestParam session: String) {
-        sessionRepository.delete(session)
+    fun delete(request: HttpServletRequest) {
+        sessionRepository.delete(request.getHeader("X-FORWARDED-FOR") ?: request.remoteAddr)
     }
 }
